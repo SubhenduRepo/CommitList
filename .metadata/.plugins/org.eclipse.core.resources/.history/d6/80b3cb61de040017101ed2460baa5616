@@ -1,0 +1,190 @@
+package com.tcs.kits.util;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelUtil {
+	
+	private static final String FILE_NAME = "D:\\MyFirstExcel.xlsx";
+
+    public void Excelwriter(ArrayList<ArrayList<String>> board2) {
+
+    	
+        
+        
+    	
+    	String newWorkSheeetName =null;
+    	XSSFWorkbook workbook = new XSSFWorkbook();
+        for (int j=0; j<board2.size(); j++){
+        	
+        	String concatString = null;
+            
+            XSSFSheet sheet = workbook.createSheet("TestSheet"+j);
+            XSSFCellStyle headingStyle = workbook.createCellStyle();
+            XSSFCellStyle dataStyle = workbook.createCellStyle();
+            //headingStyle.setFillBackgroundColor(HSSFColor.GREY_25_PERCENT.index);
+            headingStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            headingStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            
+            CellStyle cellStyle = workbook.createCellStyle();
+            XSSFCellStyle modifiedDataStyle = workbook.createCellStyle();
+            XSSFCellStyle finalDataStyle = workbook.createCellStyle();
+			cellStyle.setFillBackgroundColor(IndexedColors.AQUA.getIndex());
+			cellStyle.setFillPattern(CellStyle.BIG_SPOTS);
+            
+            
+            
+            headingStyle.setFillPattern(XSSFCellStyle.SPARSE_DOTS);
+            //headingStyle.setAlignment(XSSFCellStyle.ALIGN_FILL);
+            headingStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+            headingStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+            headingStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+            headingStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+            headingStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+            
+            
+            dataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+			 dataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+			 dataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+			 dataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+			 
+			 modifiedDataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+			 modifiedDataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+			 modifiedDataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+			 modifiedDataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+			 modifiedDataStyle.set
+            
+            
+            XSSFFont headerFont = workbook.createFont();
+            headerFont.setBold(true);
+            //headerFont.setFontHeightInPoints((short) 12); 
+            headerFont.setFontName("ARIAL");
+            headingStyle.setFont(headerFont);
+            
+            
+            int rowNum=0;
+            Row row = sheet.createRow(rowNum++);
+            row.setHeight((short)400);
+            int colNum=0;
+            Cell cell1 = row.createCell(colNum++);
+            cell1.setCellValue("Key");
+            cell1.setCellStyle(headingStyle);
+            //System.out.println("writing row and col::"+rowNum + "  "+colNum);
+            Cell cell2 = row.createCell(colNum++);
+            cell2.setCellValue("Summary");
+            cell2.setCellStyle(headingStyle);
+            //System.out.println("writing row and col::"+rowNum + "  "+colNum);
+            Cell cell3 = row.createCell(colNum++);
+            cell3.setCellValue("Status");
+            cell3.setCellStyle(headingStyle);
+            //System.out.println("writing row and col::"+rowNum + "  "+colNum);
+            Cell cell4 = row.createCell(colNum++);
+            cell4.setCellValue("Issue Type");
+            cell4.setCellStyle(headingStyle);
+            //System.out.println("writing row and col::"+rowNum + "  "+colNum);
+            Cell cell5 = row.createCell(colNum++);
+            cell5.setCellValue("Priority");
+            cell5.setCellStyle(headingStyle);
+            //System.out.println("writing row and col::"+rowNum + "  "+colNum);
+            sheet.setColumnWidth(0, 5000);
+            sheet.setColumnWidth(1, 15000);
+            sheet.setColumnWidth(2, 7000);
+            sheet.setColumnWidth(3, 7000);
+            sheet.setColumnWidth(4, 7000);
+            
+            
+    		for (int i = 0 ; i<board2.get(j).size() ; i++){
+    		 concatString=board2.get(j).get(i);
+    		 ArrayList<String> excelData = new ArrayList<String>();
+    		 excelData = splitter(concatString);
+    		 //System.out.println(excelData);
+    		 Iterator itr = excelData.iterator();
+    		 
+    		 if (!(excelData.get(3)).equalsIgnoreCase("DONE") && !(excelData.get(3)).equalsIgnoreCase("RESOLVED"))
+    		 {
+    			 
+    		 }
+    		 	
+    		 
+    		 Row row1 = sheet.createRow(rowNum++);
+    		 //System.out.println("rowNumrowNumrowNum::"+rowNum);
+    		 int colNum1=0;
+    		 Boolean setColorFlag = false;
+    		 
+    		 while (itr.hasNext())
+    		 {
+    			 
+    			 
+    			 String value = itr.next().toString();
+    			 if (colNum1 ==0 && rowNum ==2)
+    			 {
+    				  newWorkSheeetName = value.substring(0, value.indexOf("-"));
+    			 }
+    			 //System.out.println("nlknmkl;"+value);
+    			 Cell cell6 = row1.createCell(colNum1++);
+    			 if (colNum1==3) {
+    				 System.out.println("valueee:::"+value);
+    				 if (!((value.toUpperCase()).contains("DONE")) && !((value.toUpperCase()).contains("RESOLVED")) )
+    				 {
+    					 setColorFlag = true;
+    				 }
+    			 }
+    			 
+    			 
+    			cell6.setCellValue(value);
+    			cell6.setCellStyle(dataStyle);
+    			
+    			if (setColorFlag){
+    				int countColor = colNum1;
+    				while (countColor >=0){
+    				row1.setRowStyle(cellStyle);
+    				}
+    			}
+    			
+    			//System.out.println("writing row and col in::"+rowNum + "  "+colNum1);
+    		 }
+    		 
+    		 workbook.setSheetName(workbook.getSheetIndex(sheet),newWorkSheeetName );
+    		}
+    		//System.out.println("============================================================");
+    		}
+        
+        
+        
+        try {
+            FileOutputStream outputStream = new FileOutputStream(FILE_NAME);
+            workbook.write(outputStream);
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Done");
+    }
+    
+    public ArrayList<String> splitter(String concatString)
+    {
+    	//ArrayList<String> excelData = new ArrayList<String>();
+    	
+    	ArrayList<String> list = new ArrayList<String>(Arrays.asList(concatString.split("~~split~~")));
+    	
+    	return list;
+    }
+
+}

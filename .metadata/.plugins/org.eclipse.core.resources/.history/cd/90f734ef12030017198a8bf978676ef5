@@ -1,0 +1,12 @@
+stories = Y
+releaseNotes = Y
+
+
+jiraUserID = chatts11
+jiraPwd = Superman01
+
+
+BASE_URL = https://jira.kfplc.com
+API_ISSUE_PATH = /rest/api/2/issue/
+
+issueID = DR-22

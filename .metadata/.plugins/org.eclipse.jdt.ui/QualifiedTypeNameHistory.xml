@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="com.tcs.kits.util.ExcelUtil"/>
+<fullyQualifiedTypeName name="com.tcs.kits.util.excelUtil"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
+<fullyQualifiedTypeName name="java.sql.Array"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Row"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder.Value"/>
+<fullyQualifiedTypeName name="java.awt.Font"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Font"/>
+<fullyQualifiedTypeName name="org.apache.poi.hssf.usermodel.HSSFCellStyle"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFColor"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFCellStyle"/>
+<fullyQualifiedTypeName name="org.apache.poi.hssf.util.HSSFColor.AQUA"/>
+<fullyQualifiedTypeName name="org.apache.poi.hssf.util.HSSFColor.GREY_40_PERCENT"/>
+<fullyQualifiedTypeName name="org.apache.poi.hssf.util.HSSFColor.GREY_25_PERCENT"/>
+<fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.CellStyle"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.IndexedColors"/>
+<fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFFont"/>
+<fullyQualifiedTypeName name="org.apache.poi.sl.usermodel.Sheet"/>
+<fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Sheet"/>
+</qualifiedTypeNameHistroy>
