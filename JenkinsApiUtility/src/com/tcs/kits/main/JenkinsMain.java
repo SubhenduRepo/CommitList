@@ -94,8 +94,10 @@ public class JenkinsMain {
 		
 		ExcelUtil eu = new ExcelUtil();
 		//eu.Excelwriter(board2);
-		eu.excelReader();
-		
+		//eu.excelReader();
+
+		CsvUtil csvUtil = new CsvUtil();
+		csvUtil.csvReader();
 		
 		/*for (int j=0; j<board2.size(); j++){
 			

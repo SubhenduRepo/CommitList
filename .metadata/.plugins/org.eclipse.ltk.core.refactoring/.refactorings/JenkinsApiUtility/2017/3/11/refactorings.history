@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;JenkinsApiUtility/src/com/tcs/kits/util/CsvReader.java&apos; to &apos;CsvUtil.java&apos;" description="Rename resource &apos;CsvReader.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/com/tcs/kits/util/CsvReader.java" name="CsvUtil.java" stamp="1489492004072" updateReferences="true"/>
+</session>

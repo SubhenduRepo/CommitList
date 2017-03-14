@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="libs/poi-3.15.jar"/>
 	<classpathentry kind="lib" path="libs/poi-ooxml-3.15.jar"/>
 	<classpathentry kind="lib" path="libs/xmlbeans-2.5.0.jar"/>
+	<classpathentry kind="lib" path="libs/opencsv-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
