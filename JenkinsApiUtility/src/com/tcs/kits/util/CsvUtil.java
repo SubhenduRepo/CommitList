@@ -22,12 +22,13 @@ public class CsvUtil {
             while ((nextLine = reader.readNext()) != null) 
             {
             	//System.out.println("length:::"+nextLine[2]);
-               /* for(String token : nextLine)
+                for(String token : nextLine)
                 {
+                	
                     //Print all tokens
-                    System.out.println(token);
+                    //System.out.println(token);
                 }
-                */
+                
                 jiraIdTrimmed = trimmer(nextLine[subjectIndex].trim());
                 //System.out.println(jiraIdTrimmed);
                 
@@ -52,11 +53,26 @@ public class CsvUtil {
 		int indexOfFirst = 0;
 		String trimmedStr =null;
 		System.out.println(gitSubject);
-		Pattern pOne = Pattern.compile("[]");
+		Pattern pOne = Pattern.compile("\\[.*\\]");
+		Matcher mOne = pOne.matcher(gitSubject);
+		try{
+		if (mOne.find()){
+		//System.out.println(((mOne.group()).replaceAll("\\[", "")).replaceAll("\\]", ""));
+			//System.out.println(mOne.group());
+			//System.out.println(mOne.groupCount());
+			Pattern pTwo = Pattern.compile("[A-Z,a-z]{2,}-[0-9]{1,}");
+			Matcher mTwo = pTwo.matcher(mOne.group());
+			while(mTwo.find()){			
+			System.out.println(mTwo.group());
+			//System.out.println(mTwo.end());
+			//System.out.println(mTwo.groupCount());
+			
+			}
+		}
 		 Pattern p = Pattern.compile(":[A-Z]*-[0-9]*");
 		 Matcher m = p.matcher(gitSubject);
 		 if (m.find()){
-			 System.out.println(m.group().replace(':', ' '));
+			 //System.out.println(m.group().replace(':', ' '));
 		 }
 		
 		 
@@ -64,7 +80,7 @@ public class CsvUtil {
 		
 		int indexOfLast=gitSubject.indexOf(']');
 		//System.out.println(indexOfFirst+"  "+indexOfLast);
-		try{
+		
 			/*if (indexOfFirst==-1 && indexOfLast==-1){
 				trimmedStr ="Merge String";
 			}
@@ -74,7 +90,7 @@ public class CsvUtil {
 		//System.out.println(trimmedStr);
 		//System.out.println(trimmedStr.replaceAll(":[A-Z]*-[0-9]*", "faltu"));
 		}
-		catch (StringIndexOutOfBoundsException e){
+		catch (Exception e){
 			e.printStackTrace();
 			
 		}
