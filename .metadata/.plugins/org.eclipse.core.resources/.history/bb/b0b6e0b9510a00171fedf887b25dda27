@@ -25,7 +25,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelUtil {
 	
 	private static final String OUTPUT_FILE_NAME = "D:\\MyFirstExcel.xlsx";
-	private static final String OUTPUT_FILE_NAME1 = "D:\\MyFirstExcel123.xlsx";
 	private static final String INPUT_FILE_NAME = "D:\\Commit List from tag 57 to 88.xlsx";
     public void ExcelwriterJStories(ArrayList<ArrayList<String>> board2) {
 
@@ -208,104 +207,4 @@ public class ExcelUtil {
 		}
         
     }
-    
-    
-    
-    public void excelWriterCL(ArrayList<ArrayList<String>> csvArrayTotal)
-	{
-		
-    	String newWorkSheeetName =null;
-    	XSSFWorkbook workbook = new XSSFWorkbook();
-    	
-    	
-    		XSSFSheet sheet = workbook.createSheet("CommitList");
-    		
-    			
-    			 XSSFCellStyle headingStyle = workbook.createCellStyle();
-    	            XSSFCellStyle dataStyle = workbook.createCellStyle();
-    	            
-    	            headingStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-    	            headingStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-    	            
-    	            headingStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-    	            headingStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-    	            headingStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-    	            headingStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-    	            headingStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-    	            
-    	            
-    	            
-    	            dataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-    				 dataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-    				 dataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-    				 dataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-    				 dataStyle.setWrapText(true);
-    				 
-    				 
-    				 XSSFFont headerFont = workbook.createFont();
-    		            headerFont.setBold(true);
-    		            //headerFont.setFontHeightInPoints((short) 12); 
-    		            headerFont.setFontName("ARIAL");
-    		            headingStyle.setFont(headerFont);
-    		            
-    		            
-    		            int rowNum=0;
-    		            Row row = sheet.createRow(rowNum++);
-    		            row.setHeight((short)400);
-    		            int colNum=0;
-    		            Cell cell1 = row.createCell(colNum++);
-    		            cell1.setCellValue("CommitId");
-    		            cell1.setCellStyle(headingStyle);
-    		           
-    		            Cell cell2 = row.createCell(colNum++);
-    		            cell2.setCellValue("Summary");
-    		            cell2.setCellStyle(headingStyle);
-    		           
-    		            Cell cell3 = row.createCell(colNum++);
-    		            cell3.setCellValue("Author");
-    		            cell3.setCellStyle(headingStyle);
-    		            
-    		            Cell cell4 = row.createCell(colNum++);
-    		            cell4.setCellValue("Jira Id");
-    		            cell4.setCellStyle(headingStyle);
-    		            
-    		            sheet.setColumnWidth(0, 5000);
-    		            sheet.setColumnWidth(1, 15000);
-    		            sheet.setColumnWidth(2, 7000);
-    		            sheet.setColumnWidth(3, 7000);
-    		            
-    		            
-    		            
-    		            for (int j=0; j<csvArrayTotal.size(); j++)
-    		    		{
-    		    			for (int i = 0 ; i<csvArrayTotal.get(j).size() ; i++){
-    		    				//System.out.println("value from List::"+csvArrayTotal.get(j).get(i));
-    		    				Row row1 = sheet.createRow(rowNum++);
-    		    				
-    		    				Cell cell5 = row1.createCell(colNum++);
-    		       			 
-    		       			 
-    		    				cell5.setCellValue(csvArrayTotal.get(j).get(i));
-    		    				cell5.setCellStyle(dataStyle);
-    		    			}
-    		    		}
-    		            
-    		            try {
-    		                FileOutputStream outputStream = new FileOutputStream(OUTPUT_FILE_NAME1);
-    		                workbook.write(outputStream);
-    		                workbook.close();
-    		            } catch (FileNotFoundException e) {
-    		                e.printStackTrace();
-    		            } catch (IOException e) {
-    		                e.printStackTrace();
-    		            }
-
-    		            System.out.println("Done");
-    	
-    	
-	}
-	
-    
-    
-    
 }

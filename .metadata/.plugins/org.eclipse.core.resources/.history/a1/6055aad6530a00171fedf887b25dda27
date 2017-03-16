@@ -42,9 +42,7 @@ public class CsvUtil {
                 csvArrayTotal.add(csvArray);
                 
             }
-            //valueFromList(csvArrayTotal);
-            ExcelUtil eu = new ExcelUtil();
-            eu.excelWriterCL(csvArrayTotal);
+            valueFromList(csvArrayTotal);
         }
         catch (Exception e) {
             e.printStackTrace();

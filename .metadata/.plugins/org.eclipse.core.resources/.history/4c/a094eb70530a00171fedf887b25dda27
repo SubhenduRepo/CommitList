@@ -25,7 +25,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelUtil {
 	
 	private static final String OUTPUT_FILE_NAME = "D:\\MyFirstExcel.xlsx";
-	private static final String OUTPUT_FILE_NAME1 = "D:\\MyFirstExcel123.xlsx";
 	private static final String INPUT_FILE_NAME = "D:\\Commit List from tag 57 to 88.xlsx";
     public void ExcelwriterJStories(ArrayList<ArrayList<String>> board2) {
 
@@ -219,7 +218,7 @@ public class ExcelUtil {
     	
     	
     		XSSFSheet sheet = workbook.createSheet("CommitList");
-    		
+    		for (int j=0; j<csvArrayTotal.size(); j++){
     			
     			 XSSFCellStyle headingStyle = workbook.createCellStyle();
     	            XSSFCellStyle dataStyle = workbook.createCellStyle();
@@ -268,40 +267,8 @@ public class ExcelUtil {
     		            Cell cell4 = row.createCell(colNum++);
     		            cell4.setCellValue("Jira Id");
     		            cell4.setCellStyle(headingStyle);
-    		            
-    		            sheet.setColumnWidth(0, 5000);
-    		            sheet.setColumnWidth(1, 15000);
-    		            sheet.setColumnWidth(2, 7000);
-    		            sheet.setColumnWidth(3, 7000);
-    		            
-    		            
-    		            
-    		            for (int j=0; j<csvArrayTotal.size(); j++)
-    		    		{
-    		    			for (int i = 0 ; i<csvArrayTotal.get(j).size() ; i++){
-    		    				//System.out.println("value from List::"+csvArrayTotal.get(j).get(i));
-    		    				Row row1 = sheet.createRow(rowNum++);
-    		    				
-    		    				Cell cell5 = row1.createCell(colNum++);
-    		       			 
-    		       			 
-    		    				cell5.setCellValue(csvArrayTotal.get(j).get(i));
-    		    				cell5.setCellStyle(dataStyle);
-    		    			}
-    		    		}
-    		            
-    		            try {
-    		                FileOutputStream outputStream = new FileOutputStream(OUTPUT_FILE_NAME1);
-    		                workbook.write(outputStream);
-    		                workbook.close();
-    		            } catch (FileNotFoundException e) {
-    		                e.printStackTrace();
-    		            } catch (IOException e) {
-    		                e.printStackTrace();
-    		            }
-
-    		            System.out.println("Done");
-    	
+    			
+    	}
     	
 	}
 	

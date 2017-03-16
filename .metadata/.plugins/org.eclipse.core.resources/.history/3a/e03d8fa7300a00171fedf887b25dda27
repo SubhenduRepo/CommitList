@@ -42,9 +42,6 @@ public class CsvUtil {
                 csvArrayTotal.add(csvArray);
                 
             }
-            //valueFromList(csvArrayTotal);
-            ExcelUtil eu = new ExcelUtil();
-            eu.excelWriterCL(csvArrayTotal);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -70,16 +67,9 @@ public class CsvUtil {
 			trimmedStr ="";
 			Pattern pTwo = Pattern.compile("[A-Z,a-z]{2,}-[0-9]{1,}");
 			Matcher mTwo = pTwo.matcher(mOne.group());
-			if (mTwo.find()){
-				mTwo.reset();
 			while(mTwo.find()){			
-			//System.out.println(mTwo.group());
+			System.out.println(mTwo.group());
 			trimmedStr = trimmedStr.concat(mTwo.group());
-			trimmedStr=trimmedStr.concat(",");
-			}
-			}
-			else{
-				trimmedStr = "noMatch";
 			}
 		}
 		else{
@@ -102,15 +92,6 @@ public class CsvUtil {
 	public void valueFromList(ArrayList<ArrayList<String>> csvArrayTotal)
 	{
 		for (int j=0; j<csvArrayTotal.size(); j++)
-		{
-			for (int i = 0 ; i<csvArrayTotal.get(j).size() ; i++){
-				System.out.println("value from List::"+csvArrayTotal.get(j).get(i));
-			}
-		}
 	}
-	
-	
-	
-	
 
 }

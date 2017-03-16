@@ -25,7 +25,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelUtil {
 	
 	private static final String OUTPUT_FILE_NAME = "D:\\MyFirstExcel.xlsx";
-	private static final String OUTPUT_FILE_NAME1 = "D:\\MyFirstExcel123.xlsx";
 	private static final String INPUT_FILE_NAME = "D:\\Commit List from tag 57 to 88.xlsx";
     public void ExcelwriterJStories(ArrayList<ArrayList<String>> board2) {
 
@@ -290,17 +289,7 @@ public class ExcelUtil {
     		    			}
     		    		}
     		            
-    		            try {
-    		                FileOutputStream outputStream = new FileOutputStream(OUTPUT_FILE_NAME1);
-    		                workbook.write(outputStream);
-    		                workbook.close();
-    		            } catch (FileNotFoundException e) {
-    		                e.printStackTrace();
-    		            } catch (IOException e) {
-    		                e.printStackTrace();
-    		            }
-
-    		            System.out.println("Done");
+    			
     	
     	
 	}

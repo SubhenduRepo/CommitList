@@ -42,9 +42,7 @@ public class CsvUtil {
                 csvArrayTotal.add(csvArray);
                 
             }
-            //valueFromList(csvArrayTotal);
-            ExcelUtil eu = new ExcelUtil();
-            eu.excelWriterCL(csvArrayTotal);
+            valueFromList(csvArrayTotal);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +73,6 @@ public class CsvUtil {
 			while(mTwo.find()){			
 			//System.out.println(mTwo.group());
 			trimmedStr = trimmedStr.concat(mTwo.group());
-			trimmedStr=trimmedStr.concat(",");
 			}
 			}
 			else{
@@ -108,9 +105,5 @@ public class CsvUtil {
 			}
 		}
 	}
-	
-	
-	
-	
 
 }

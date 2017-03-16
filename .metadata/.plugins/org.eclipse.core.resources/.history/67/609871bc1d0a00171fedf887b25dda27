@@ -2,7 +2,6 @@ package com.tcs.kits.util;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,8 +13,6 @@ public class CsvUtil {
 		CSVReader reader = null;
 		int subjectIndex = 2;
 		String jiraIdTrimmed = "";
-		
-		ArrayList<ArrayList<String>> csvArrayTotal = new ArrayList<ArrayList<String>>();
         try
         {
             //Get the CSVReader instance with specifying the delimiter to be used
@@ -24,27 +21,20 @@ public class CsvUtil {
             //Read one line at a time
             while ((nextLine = reader.readNext()) != null) 
             {
-            	ArrayList<String> csvArray = new ArrayList<String>();
             	//System.out.println("length:::"+nextLine[2]);
                 for(String token : nextLine)
                 {
                 	
                     //Print all tokens
                     //System.out.println(token);
-                	csvArray.add(token);
                 }
                 
                 jiraIdTrimmed = trimmer(nextLine[subjectIndex].trim());
                 //System.out.println(jiraIdTrimmed);
                 
                 //System.out.println("line break");
-                csvArray.add(jiraIdTrimmed);
-                csvArrayTotal.add(csvArray);
                 
             }
-            //valueFromList(csvArrayTotal);
-            ExcelUtil eu = new ExcelUtil();
-            eu.excelWriterCL(csvArrayTotal);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -60,57 +50,52 @@ public class CsvUtil {
 	}
 	
 	public String trimmer(String gitSubject){
-		
+		int indexOfFirst = 0;
 		String trimmedStr ="";
 		System.out.println(gitSubject);
 		Pattern pOne = Pattern.compile("\\[.*\\]");
 		Matcher mOne = pOne.matcher(gitSubject);
 		try{
 		if (mOne.find()){
-			trimmedStr ="";
+		//System.out.println(((mOne.group()).replaceAll("\\[", "")).replaceAll("\\]", ""));
+			//System.out.println(mOne.group());
+			//System.out.println(mOne.groupCount());
 			Pattern pTwo = Pattern.compile("[A-Z,a-z]{2,}-[0-9]{1,}");
 			Matcher mTwo = pTwo.matcher(mOne.group());
-			if (mTwo.find()){
-				mTwo.reset();
 			while(mTwo.find()){			
-			//System.out.println(mTwo.group());
+			System.out.println(mTwo.group());
 			trimmedStr = trimmedStr.concat(mTwo.group());
-			trimmedStr=trimmedStr.concat(",");
-			}
-			}
-			else{
-				trimmedStr = "noMatch";
+			//System.out.println(mTwo.end());
+			//System.out.println(mTwo.groupCount());
+			
 			}
 		}
-		else{
-			trimmedStr = "noMatch";
-		}
+		 Pattern p = Pattern.compile(":[A-Z]*-[0-9]*");
+		 Matcher m = p.matcher(gitSubject);
+		 if (m.find()){
+			 //System.out.println(m.group().replace(':', ' '));
+		 }
+		
 		 
+			 indexOfFirst =  gitSubject.indexOf('[');
+		
+		int indexOfLast=gitSubject.indexOf(']');
+		//System.out.println(indexOfFirst+"  "+indexOfLast);
+		
+			/*if (indexOfFirst==-1 && indexOfLast==-1){
+				trimmedStr ="Merge String";
+			}
+			else{*/
+		//trimmedStr=gitSubject.substring(indexOfFirst+1, indexOfLast);
+			//}
+		//System.out.println(trimmedStr);
+		//System.out.println(trimmedStr.replaceAll(":[A-Z]*-[0-9]*", "faltu"));
 		}
 		catch (Exception e){
 			e.printStackTrace();
 			
 		}
-		
 		return trimmedStr;
-		
 	}
-	
-	
-	
-	
-	public void valueFromList(ArrayList<ArrayList<String>> csvArrayTotal)
-	{
-		for (int j=0; j<csvArrayTotal.size(); j++)
-		{
-			for (int i = 0 ; i<csvArrayTotal.get(j).size() ; i++){
-				System.out.println("value from List::"+csvArrayTotal.get(j).get(i));
-			}
-		}
-	}
-	
-	
-	
-	
 
 }

@@ -91,16 +91,22 @@ public class JenkinsMain {
 		
 		}
 		
+		
+		ExcelUtil eu = new ExcelUtil();
+		//eu.ExcelwriterCL(board2);
+		//eu.excelReader();
+
 		CsvUtil csvUtil = new CsvUtil();
 		csvUtil.csvReader();
 		
-		ExcelUtil eu = new ExcelUtil();
-		//eu.ExcelwriterJStories(board2);
-		//eu.excelReader();
+		/*for (int j=0; j<board2.size(); j++){
+			
+		for (int i = 0 ; i<board2.get(j).size() ; i++){
+		System.out.println("boasdasdad"+ board2.get(j).get(i));
+		}
+		System.out.println("============================================================");
+		}*/
 
-		
-		
-		
 		} catch (ClientHandlerException e) {
 			System.out.println("Error invoking REST method");
 			e.printStackTrace();
