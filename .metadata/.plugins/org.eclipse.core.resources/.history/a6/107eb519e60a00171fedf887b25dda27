@@ -3,12 +3,8 @@ package com.tcs.kits.util;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -46,10 +42,6 @@ public class CsvUtil {
                 csvArrayTotal.add(csvArray);
                 
             }
-            
-        
-            
-            
             //valueFromList(csvArrayTotal);
             ExcelUtil eu = new ExcelUtil();
             eu.excelWriterCL(csvArrayTotal);
@@ -72,10 +64,9 @@ public class CsvUtil {
 		String trimmedStr ="";
 		System.out.println(gitSubject);
 		Pattern pOne = Pattern.compile("\\[.*\\]");
-		Pattern pTwo = Pattern.compile("[A-Z,a-z]{2,}-[0-9]{1,}");
 		Matcher mOne = pOne.matcher(gitSubject);
-		Pattern pThree = Pattern.compile("^Merge\\s");
-		
+		Patter pThree = Pattern.compile("^Merge\\s");
+		Pattern pTwo = Pattern.compile("[A-Z,a-z]{2,}-[0-9]{1,}");
 		try{
 		if (mOne.find()){
 			trimmedStr ="";
@@ -90,20 +81,16 @@ public class CsvUtil {
 			}
 			}
 			else{
-				trimmedStr = "NonExistingJiraStories";
+				trimmedStr = "noMatch";
 			}
 		}
-		else 
+		else if()
 		{
-			Matcher mThree= pThree.matcher(gitSubject);
-			if(mThree.find()){
-				trimmedStr = "noNeed";
-			}
-			else{
-				trimmedStr = "NonExistingJiraStories";
-			}
+			
 		}
-		
+		else{
+			trimmedStr = "noMatch";
+		}
 		 
 		}
 		catch (Exception e){

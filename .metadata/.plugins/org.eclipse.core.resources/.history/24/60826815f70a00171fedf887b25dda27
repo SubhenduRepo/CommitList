@@ -279,7 +279,7 @@ public class ExcelUtil {
     		    		{
     		            	int colNum1=0;
     		            	
-    		            	if(!(csvArrayTotal.get(j).get(3).equals("noNeed")))
+    		            	if((csvArrayTotal.get(j).get(3).equals("noNeed")))
     		            			{
     		            		Row row1 = sheet.createRow(rowNum++);
     		    			for (int i = 0 ; i<csvArrayTotal.get(j).size() ; i++){
