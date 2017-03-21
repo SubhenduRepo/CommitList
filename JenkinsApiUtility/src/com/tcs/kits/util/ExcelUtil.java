@@ -114,9 +114,9 @@ public class ExcelUtil {
     		 concatString=board2.get(j).get(i);
     		 ArrayList<String> excelData = new ArrayList<String>();
     		 excelData = splitter(concatString);
-    		 
+    		 System.out.println(excelData);
     		 Iterator itr = excelData.iterator();
-    		 
+    		 System.out.println("check status");
     		 if (!(excelData.get(2)).equalsIgnoreCase("DONE") && !(excelData.get(2)).equalsIgnoreCase("RESOLVED"))
     		 {
     			 finalDataStyle = modifiedDataStyle;
@@ -132,7 +132,7 @@ public class ExcelUtil {
     		 
     		 while (itr.hasNext())
     		 {
-    			 
+    			// System.out.println("write");
     			 
     			 String value = itr.next().toString();
     			 if (colNum1 ==0 && rowNum ==2)
@@ -149,6 +149,7 @@ public class ExcelUtil {
     		 
     		 workbook.setSheetName(workbook.getSheetIndex(sheet),newWorkSheeetName );
     		}
+    		
     		}
         
         
@@ -202,7 +203,6 @@ public class ExcelUtil {
 	        inputStream.close();
 	        
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         

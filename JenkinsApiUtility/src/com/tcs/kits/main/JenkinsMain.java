@@ -27,91 +27,9 @@ public class JenkinsMain {
 
 	public static void main(String[] args) {
 		
-		
-		Properties prop = new Properties();
-		InputStream input = null;
-		
-		try {
-			input = new FileInputStream("releaseNotes.properties");
-			prop.load(input);
-			
-			 String BASE_URL = prop.getProperty("BASE_URL").toString();
-			 String API_ISSUE_PATH = prop.getProperty("API_ISSUE_PATH").toString();
-			
-			String jiraUserID = prop.getProperty("jiraUserID").toString();
-			String jiraPwd = prop.getProperty("jiraPwd").toString();
-			String issueID = prop.getProperty("issueID").toString();
-			
-			ArrayList ccpIssue = new ArrayList<String>();
-			
-			ccpIssue.add("CCP-3687");
-			ccpIssue.add("CCP-3686");
-			ccpIssue.add("CCP-3685");
-			ccpIssue.add("CCP-3682");
-			ccpIssue.add("CCP-3655");
-			
-			
-			ArrayList cfbIssue = new ArrayList<String>();
-			cfbIssue.add("CFB-2088");
-			cfbIssue.add("CFB-2082");
-			cfbIssue.add("CFB-2067");
-			cfbIssue.add("CFB-2053");
-			cfbIssue.add("CFB-2046");
-			
-			ArrayList dcrbIssue = new ArrayList<String>();
-			dcrbIssue.add("DCRB-2581");
-			dcrbIssue.add("DCRB-2579");
-			dcrbIssue.add("DCRB-2577");
-			dcrbIssue.add("DCRB-2564");
-			dcrbIssue.add("DCRB-2561");
-			dcrbIssue.add("DCRB-2560");
-			
-			
-			
-			ArrayList<ArrayList<String>> boards = new ArrayList<ArrayList<String>>();
-			boards.add(ccpIssue);
-			boards.add(cfbIssue);
-			boards.add(dcrbIssue);
-			
-			
-			ArrayList<ArrayList<String>> board2 = new ArrayList<ArrayList<String>>();
-			
-			
-			
-			//System.out.println("afafaf"+boards);
-			
-		String auth = new String(Base64.encode(jiraUserID+":"+jiraPwd));
-		
-		Iterator oItr = boards.iterator();
-		while (oItr.hasNext()){
-		Iterator itr = ((ArrayList<String>) oItr.next()).iterator();
-		
-			//Get Issue and add to the main board
-			//board2.add(getIssueDetails(itr, auth, BASE_URL, API_ISSUE_PATH));
-		
-		}
-		
 		CsvUtil csvUtil = new CsvUtil();
 		csvUtil.csvReader();
 		
-		ExcelUtil eu = new ExcelUtil();
-		//eu.ExcelwriterJStories(board2);
-		//eu.excelReader();
-
-		
-		
-		
-		} catch (ClientHandlerException e) {
-			System.out.println("Error invoking REST method");
-			e.printStackTrace();
-		} 
-		catch (FileNotFoundException fe) {
-			System.out.println("File not found");
-		fe.printStackTrace();	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	private static String invokeGetMethod(String auth, String url) throws AuthenticationException, ClientHandlerException {
@@ -133,10 +51,16 @@ public class JenkinsMain {
 		String concatString = "";
 		String seperator = "~~split~~";
 		try{
+			Iterator itr1=itr;
+			String write=itr1.next().toString();
+			System.out.println("Writing excel for "+  write.substring(0, write.indexOf("-")) +"board");
 			while(itr.hasNext()){
-				String issue = invokeGetMethod(auth, BASE_URL + API_ISSUE_PATH + itr.next());
-				
+				String issueStr=itr.next().toString();
+				String issue = invokeGetMethod(auth, BASE_URL + API_ISSUE_PATH + issueStr );
+				//System.out.println("Authenticated Successfully for::"+issueStr);
 				JSONObject obj = new JSONObject(issue);
+				if (obj!=null && !obj.toString().equalsIgnoreCase("{\"errors\":{},\"errorMessages\":[\"Issue Does Not Exist\"]}")){
+					//System.out.println("obj=="+obj+"   and issueStr=="+issueStr);
 				String key = obj.getString("key");
 				JSONObject fields = obj.getJSONObject("fields");
 				String summary = fields.getString("summary");
@@ -157,7 +81,7 @@ public class JenkinsMain {
 
 				board1.add(concatString);
 				concatString="";
-				
+				}
 				
 			}
 			
@@ -170,6 +94,49 @@ public class JenkinsMain {
 		return board1;
 	}
 	
+	public ArrayList<ArrayList<String>> getJiraDetails(ArrayList<ArrayList<String>> allBoards)
+	{
+		ArrayList<ArrayList<String>> board2 = new ArrayList<ArrayList<String>>();
+		Properties prop = new Properties();
+		InputStream input = null;
+		try{
+		input = new FileInputStream("releaseNotes.properties");
+		prop.load(input);
+		
+		 String BASE_URL = prop.getProperty("BASE_URL").toString();
+		 String API_ISSUE_PATH = prop.getProperty("API_ISSUE_PATH").toString();
+		
+		String jiraUserID = prop.getProperty("jiraUserID").toString();
+		String jiraPwd = prop.getProperty("jiraPwd").toString();
+		String issueID = prop.getProperty("issueID").toString();
+		
+		
+		
+		
+		
+		//System.out.println("afafaf"+boards);
+		
+	String auth = new String(Base64.encode(jiraUserID+":"+jiraPwd));
+	
+	Iterator oItr = allBoards.iterator();
+	while (oItr.hasNext()){
+	Iterator itr = ((ArrayList<String>) oItr.next()).iterator();
+	System.out.println("get all issues");
+	System.out.println(oItr);
+	//System.out.println(itr.next());
+		//Get Issue and add to the main board
+		board2.add(getIssueDetails(itr, auth, BASE_URL, API_ISSUE_PATH));
+	
+	}
+	
+		
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return board2;
+	}
 	
 
 }
