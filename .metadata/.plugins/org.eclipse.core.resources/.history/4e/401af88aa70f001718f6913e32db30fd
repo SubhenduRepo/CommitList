@@ -1,0 +1,43 @@
+
+package com.tcs.kits.main;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Properties;
+
+import javax.naming.AuthenticationException;
+
+import org.json.JSONObject;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.Base64;
+import com.tcs.kits.util.CsvUtil;
+
+public class JenkinsMain {
+
+	
+	public static void main(String[] args) {
+		
+		long startTime = System.currentTimeMillis();
+		CsvUtil csvUtil = new CsvUtil();
+		csvUtil.csvReader();
+		long endTime = System.currentTimeMillis();
+		float totalTime=(endTime - startTime)/60000;
+		
+		System.out.println("Total Execution Time:: "+totalTime+ " minutes");
+		
+	}
+
+	
+	
+
+}

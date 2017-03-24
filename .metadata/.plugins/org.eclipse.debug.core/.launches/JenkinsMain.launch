@@ -7,5 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.tcs.kits.main.JenkinsMain"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="ATG_BQ_TAG_122_FIXES ATG_BQ_TAG_141"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="JenkinsApiUtility"/>
 </launchConfiguration>
