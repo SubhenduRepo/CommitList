@@ -1,0 +1,58 @@
+package com.tcs.kits.util;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+
+public class ExcelHeaderData {
+	
+	public static Row nonJiraAndCommitListHeaderData(Row row, XSSFCellStyle headingStyle){
+		row.setHeight((short)400);
+		int colNum=0;
+		Cell cell1 = row.createCell(colNum++);
+		cell1.setCellValue("CommitId");
+		cell1.setCellStyle(headingStyle);
+
+		Cell cell2 = row.createCell(colNum++);
+		cell2.setCellValue("Summary");
+		cell2.setCellStyle(headingStyle);
+
+		Cell cell3 = row.createCell(colNum++);
+		cell3.setCellValue("Author");
+		cell3.setCellStyle(headingStyle);
+
+		Cell cell4 = row.createCell(colNum++);
+		cell4.setCellValue("Jira Id");
+		cell4.setCellStyle(headingStyle);
+		return row;
+	}
+	
+public static Row ExcelwriterJStoriesRow(Row row, XSSFCellStyle headingStyle){
+		
+		row.setHeight((short)400);
+		int colNum=0;
+		Cell cell1 = row.createCell(colNum++);
+		cell1.setCellValue("Key");
+		cell1.setCellStyle(headingStyle);
+
+		Cell cell2 = row.createCell(colNum++);
+		cell2.setCellValue("Summary");
+		cell2.setCellStyle(headingStyle);
+
+		Cell cell3 = row.createCell(colNum++);
+		cell3.setCellValue("Status");
+		cell3.setCellStyle(headingStyle);
+
+		Cell cell4 = row.createCell(colNum++);
+		cell4.setCellValue("Issue Type");
+		cell4.setCellStyle(headingStyle);
+
+		Cell cell5 = row.createCell(colNum++);
+		cell5.setCellValue("Priority");
+		cell5.setCellStyle(headingStyle);
+		
+		return row;
+	}
+
+
+}

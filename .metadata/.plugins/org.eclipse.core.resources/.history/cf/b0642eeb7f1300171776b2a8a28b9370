@@ -1,0 +1,23 @@
+package com.tcs.kits.util;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+
+public class ExcelStyles {
+	
+	public void headingStyles(XSSFCellStyle headingStyleLocal){
+		
+		headingStyleLocal.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+		headingStyleLocal.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		headingStyleLocal.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+		headingStyleLocal.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		headingStyleLocal.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		headingStyleLocal.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		headingStyleLocal.setBorderTop(HSSFCellStyle.BORDER_THIN);
+	}
+	
+	
+
+}

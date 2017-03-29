@@ -3,26 +3,26 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="119" key="DIALOG_Y_ORIGIN"/>
-		<item value="563" key="DIALOG_X_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="563" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="[ESP:ESP-Merge]" key="selection"/>
+		<item value="auth" key="selection"/>
 		<list key="findhistory">
-			<item value="[ESP:ESP-Merge]"/>
-			<item value="CESP"/>
-			<item value="grp count"/>
-			<item value="NA"/>
-			<item value="true"/>
-			<item value="invokeGetMethod"/>
-			<item value="nlknmkl"/>
-			<item value="rowNum"/>
+			<item value="Auth"/>
+			<item value="auth"/>
+			<item value="getNonJiraIdDetails"/>
+			<item value="system.out"/>
+			<item value="allIssues"/>
+			<item value="getIssueDetails"/>
+			<item value="getJiraDetails"/>
+			<item value="createIssueBoard"/>
 		</list>
 		<list key="replacehistory">
 		</list>

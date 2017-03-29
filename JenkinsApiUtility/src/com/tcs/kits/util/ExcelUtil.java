@@ -30,95 +30,38 @@ public class ExcelUtil {
 	private static final String OUTPUT_FILE_NAME = "D:\\Stories in "+JenkinsMain.argu1+".xlsx";
 	//private static final String INPUT_FILE_NAME = "D:\\Commit List from tag 57 to 88.xlsx";
 
+	
+	
 	public Boolean ExcelwriterJStories(ArrayList<ArrayList<String>> board2) {
 
+		JiraUtil jiraUtil = new JiraUtil();
 		Boolean isCompleted=false;
 		String newWorkSheeetName =null;
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		for (int j=0; j<board2.size(); j++){
 
-			//System.out.println("board2.size()::"+board2.size());
-
 			String concatString = null;
-
 			XSSFSheet sheet = workbook.createSheet("TestSheet"+j);
 			XSSFCellStyle headingStyle = workbook.createCellStyle();
 			XSSFCellStyle dataStyle = workbook.createCellStyle();
-
-			headingStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-			headingStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-
 			XSSFCellStyle modifiedDataStyle = workbook.createCellStyle();
 			XSSFCellStyle finalDataStyle = workbook.createCellStyle();
 
-			headingStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-			headingStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-			headingStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-			headingStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-			headingStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-
-
-
-			dataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setWrapText(true);
-
-			modifiedDataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-			modifiedDataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-			modifiedDataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-			modifiedDataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-			modifiedDataStyle.setWrapText(true);
-			modifiedDataStyle.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
-			modifiedDataStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
+			headingStyle = ExcelStyles.headingStyles(headingStyle, workbook);
+			dataStyle =  ExcelStyles.dataStyles(dataStyle);
+			modifiedDataStyle = ExcelStyles.modifiedSyles(modifiedDataStyle);
 
 			XSSFFont headerFont = workbook.createFont();
-			headerFont.setBold(true);
-			headerFont.setFontName("ARIAL");
-			headingStyle.setFont(headerFont);
-
-
 			int rowNum=0;
 			Row row = sheet.createRow(rowNum++);
-			row.setHeight((short)400);
-			int colNum=0;
-			Cell cell1 = row.createCell(colNum++);
-			cell1.setCellValue("Key");
-			cell1.setCellStyle(headingStyle);
-
-			Cell cell2 = row.createCell(colNum++);
-			cell2.setCellValue("Summary");
-			cell2.setCellStyle(headingStyle);
-
-			Cell cell3 = row.createCell(colNum++);
-			cell3.setCellValue("Status");
-			cell3.setCellStyle(headingStyle);
-
-			Cell cell4 = row.createCell(colNum++);
-			cell4.setCellValue("Issue Type");
-			cell4.setCellStyle(headingStyle);
-
-			Cell cell5 = row.createCell(colNum++);
-			cell5.setCellValue("Priority");
-			cell5.setCellStyle(headingStyle);
-
-			sheet.setColumnWidth(0, 5000);
-			sheet.setColumnWidth(1, 15000);
-			sheet.setColumnWidth(2, 7000);
-			sheet.setColumnWidth(3, 7000);
-			sheet.setColumnWidth(4, 7000);
-
+			row = ExcelHeaderData.ExcelwriterJStoriesHeaderData(row,headingStyle);
+			sheet = ExcelStyles.sheetWidths(sheet, 5);
 
 			for (int i = 0 ; i<board2.get(j).size() ; i++){
 				concatString=board2.get(j).get(i);
 				ArrayList<String> excelData = new ArrayList<String>();
-				excelData = splitter(concatString);
-				// System.out.println(excelData);
+				excelData = jiraUtil.splitter(concatString);
 				Iterator itr = excelData.iterator();
-				// System.out.println("check status");
 				if (!(excelData.get(2)).equalsIgnoreCase("DONE") && !(excelData.get(2)).equalsIgnoreCase("RESOLVED"))
 				{
 					finalDataStyle = modifiedDataStyle;
@@ -126,16 +69,11 @@ public class ExcelUtil {
 					finalDataStyle = dataStyle;
 				}
 
-
 				Row row1 = sheet.createRow(rowNum++);
-
 				int colNum1=0;
 				Boolean setColorFlag = false;
-
 				while (itr.hasNext())
 				{
-					// System.out.println("write");
-
 					String value = itr.next().toString();
 					if (colNum1 ==0 && rowNum ==2)
 					{
@@ -143,8 +81,6 @@ public class ExcelUtil {
 					}
 
 					Cell cell6 = row1.createCell(colNum1++);
-
-
 					cell6.setCellValue(value);
 					cell6.setCellStyle(finalDataStyle);
 				}
@@ -153,9 +89,6 @@ public class ExcelUtil {
 			}
 
 		}
-
-
-
 		try {
 			FileOutputStream outputStream = new FileOutputStream(OUTPUT_FILE_NAME);
 			workbook.write(outputStream);
@@ -168,11 +101,13 @@ public class ExcelUtil {
 			e.printStackTrace();
 		}
 
-		//System.out.println("Done");
 		return isCompleted;
 	}
 
 
+
+
+	
 
 	public void   ExcelUpdateNonJira(ArrayList<ArrayList<String>> nonJiraDetails) {
 
@@ -186,79 +121,28 @@ public class ExcelUtil {
 			XSSFCellStyle headingStyle = workbook.createCellStyle();
 			XSSFCellStyle dataStyle = workbook.createCellStyle();
 
-			headingStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-			headingStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-
-			headingStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-			headingStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-			headingStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-			headingStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-			headingStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-
-
-
-			dataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-			dataStyle.setWrapText(true);
-
-			XSSFFont headerFont = workbook.createFont();
-			headerFont.setBold(true);
-			headerFont.setFontName("ARIAL");
-			headingStyle.setFont(headerFont);
-
+			headingStyle = ExcelStyles.headingStyles(headingStyle, workbook);
+			dataStyle = ExcelStyles.dataStyles(dataStyle);
 
 			int rowNum=0;
 			Row row = sheet.createRow(rowNum++);
-			row.setHeight((short)400);
-			int colNum=0;
-			Cell cell1 = row.createCell(colNum++);
-			cell1.setCellValue("Git Id");
-			cell1.setCellStyle(headingStyle);
-
-			Cell cell2 = row.createCell(colNum++);
-			cell2.setCellValue("Summary");
-			cell2.setCellStyle(headingStyle);
-
-			Cell cell3 = row.createCell(colNum++);
-			cell3.setCellValue("Author");
-			cell3.setCellStyle(headingStyle);
-
-			Cell cell4 = row.createCell(colNum++);
-			cell4.setCellValue("Key");
-			cell4.setCellStyle(headingStyle);
-
-
-
-			sheet.setColumnWidth(0, 5000);
-			sheet.setColumnWidth(1, 15000);
-			sheet.setColumnWidth(2, 7000);
-			sheet.setColumnWidth(3, 7000);
-
+			row = ExcelHeaderData.nonJiraAndCommitListHeaderData(row, headingStyle);
+			sheet = ExcelStyles.sheetWidths(sheet, 4);
 			for (int i = 0 ; i<nonJiraDetails.size() ; i++){
 				Row row1 = sheet.createRow(rowNum++);
 				Iterator itr = nonJiraDetails.get(i).iterator();
-				colNum=0;
+				int colNum=0;
 				while(itr.hasNext()){
 					String value = itr.next().toString();
 					Cell cell6 = row1.createCell(colNum++);
-
-
 					cell6.setCellValue(value);
 					cell6.setCellStyle(dataStyle);
 				}
-
-
 			}
-			FileOutputStream output_file =new FileOutputStream(new File(OUTPUT_FILE_NAME));  //Open FileOutputStream to write updates
-            
-            workbook.write(output_file); //write changes
-              
-            output_file.close();
-            System.out.println("Stories excel updated with non-jira list");
-
+			FileOutputStream output_file =new FileOutputStream(new File(OUTPUT_FILE_NAME));  //Open FileOutputStream to write updates     
+			workbook.write(output_file); //write changes    
+			output_file.close();
+			System.out.println("Stories excel updated with non-jira list");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -274,129 +158,30 @@ public class ExcelUtil {
 
 
 
-
-	public ArrayList<String> splitter(String concatString)
-	{
-
-		ArrayList<String> list = new ArrayList<String>(Arrays.asList(concatString.split("~~split~~")));
-
-		return list;
-	}
-
-
-
-	/* public void excelReader()
-    {
-
-        String allJiraIds="";
-        Workbook workbook;
-		try {
-			FileInputStream inputStream = new FileInputStream(new File(INPUT_FILE_NAME));
-			workbook = new XSSFWorkbook(inputStream);
-			Sheet firstSheet = workbook.getSheetAt(0);
-	        Iterator<Row> iterator = firstSheet.iterator();
-
-	        while (iterator.hasNext()) {
-	            Row nextRow = iterator.next();
-	    // System.out.println( nextRow.getCell(3).getCellType());
-	            if (nextRow.getCell(3).getCellType() == 1){
-	            System.out.println("value is:::"+nextRow.getCell(3).getStringCellValue());
-	            allJiraIds = allJiraIds.concat(nextRow.getCell(3).getStringCellValue());
-	            //Iterator<Cell> cellIterator = nextRow.cellIterator();
-	        }
-
-
-	        }
-	        workbook.close();
-	        inputStream.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-    }*/
-
-
-
 	public void excelWriterCL(ArrayList<ArrayList<String>> csvArrayTotal)
 	{
 		long startTime = System.currentTimeMillis();
 		String newWorkSheeetName =null;
 		XSSFWorkbook workbook = new XSSFWorkbook();
-
-
 		XSSFSheet sheet = workbook.createSheet("CommitList");
-
-
 		XSSFCellStyle headingStyle = workbook.createCellStyle();
 		XSSFCellStyle dataStyle = workbook.createCellStyle();
 
-		headingStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-		headingStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-		headingStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-		headingStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		headingStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		headingStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		headingStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-
-
-
-		dataStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		dataStyle.setWrapText(true);
-
-
-		XSSFFont headerFont = workbook.createFont();
-		headerFont.setBold(true);
-		//headerFont.setFontHeightInPoints((short) 12); 
-		headerFont.setFontName("ARIAL");
-		headingStyle.setFont(headerFont);
-
+		headingStyle = ExcelStyles.headingStyles(headingStyle, workbook);
+		dataStyle = ExcelStyles.dataStyles(dataStyle);
 
 		int rowNum=0;
 		Row row = sheet.createRow(rowNum++);
-		row.setHeight((short)400);
-		int colNum=0;
-		Cell cell1 = row.createCell(colNum++);
-		cell1.setCellValue("CommitId");
-		cell1.setCellStyle(headingStyle);
-
-		Cell cell2 = row.createCell(colNum++);
-		cell2.setCellValue("Summary");
-		cell2.setCellStyle(headingStyle);
-
-		Cell cell3 = row.createCell(colNum++);
-		cell3.setCellValue("Author");
-		cell3.setCellStyle(headingStyle);
-
-		Cell cell4 = row.createCell(colNum++);
-		cell4.setCellValue("Jira Id");
-		cell4.setCellStyle(headingStyle);
-
-		sheet.setColumnWidth(0, 5000);
-		sheet.setColumnWidth(1, 15000);
-		sheet.setColumnWidth(2, 7000);
-		sheet.setColumnWidth(3, 7000);
-
-
-
+		row = ExcelHeaderData.nonJiraAndCommitListHeaderData(row, headingStyle);
+		sheet = ExcelStyles.sheetWidths(sheet, 4);
 		for (int j=0; j<csvArrayTotal.size(); j++)
 		{
 			int colNum1=0;
-
 			if(!(csvArrayTotal.get(j).get(3).equals("noNeed")))
 			{
 				Row row1 = sheet.createRow(rowNum++);
 				for (int i = 0 ; i<csvArrayTotal.get(j).size() ; i++){
-					//System.out.println("value from List::"+csvArrayTotal.get(j).get(i));
-
-
 					Cell cell5 = row1.createCell(colNum1++);
-
-
 					cell5.setCellValue(csvArrayTotal.get(j).get(i));
 					cell5.setCellStyle(dataStyle);
 				}
@@ -415,13 +200,9 @@ public class ExcelUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-
-
-
-
-
-
-
 	}
+
+
+
+
 }

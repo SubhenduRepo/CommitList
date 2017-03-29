@@ -18,39 +18,26 @@ public class CsvUtil {
 		String allJiraID=",";
 		int procRecords=0;
 		ArrayList<String> boardNames = new ArrayList<String>();
-
 		ArrayList<ArrayList<String>> csvArrayTotal = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<String>> allBoards = new ArrayList<ArrayList<String>>();
-		
+
 		try
 		{
-			//Get the CSVReader instance with specifying the delimiter to be used
 			reader = new CSVReader(new FileReader("D:\\projects\\try.csv"),'^');
-			
 			String [] nextLine;
-			
-			//Read one line at a time
 			while ((nextLine = reader.readNext()) != null) 
 			{
-				//System.out.println("nextline::"+nextLine[1]);
 				ArrayList<String> csvArray = new ArrayList<String>();
-				//System.out.println("Length is:: "+nextLine.length);
 				for(String token : nextLine)
 				{
 					procRecords++;
-					//System.out.println("token"+token);
-					
 					csvArray.add(token);
 				}
-
 				jiraIdTrimmed = trimmer(nextLine[subjectIndex].trim());
 				allJiraID=allJiraID+jiraIdTrimmed;
 				csvArray.add(jiraIdTrimmed.substring(0, jiraIdTrimmed.length()-1));
 				csvArrayTotal.add(csvArray);
-
 			}
-
-
 			Pattern p = Pattern.compile("(?<=,)([A-Z,a-z])\\w+");
 			Matcher m = p.matcher(allJiraID);
 			while(m.find()){			
@@ -58,7 +45,6 @@ public class CsvUtil {
 					boardNames.add(m.group().toUpperCase());
 				}
 			}
-
 			long endTime = System.currentTimeMillis();
 			float totalTime=(endTime - startTime)/1000;
 			System.out.println(procRecords+" records processed in "+totalTime+" seconds");
@@ -66,13 +52,9 @@ public class CsvUtil {
 
 			ExcelUtil eu = new ExcelUtil();
 			eu.excelWriterCL(csvArrayTotal);
-			
-			
-
 			allBoards=createIssueBoard(boardNames,allJiraID);
 			JiraUtil jiraUtil = new JiraUtil();
 			jiraUtil.jiraControl(allBoards,csvArrayTotal);
-
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -84,7 +66,6 @@ public class CsvUtil {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	public String trimmer(String gitSubject){
@@ -94,7 +75,6 @@ public class CsvUtil {
 		Pattern pTwo = Pattern.compile("[A-Z,a-z]{2,}-[0-9]{1,}");
 		Matcher mOne = pOne.matcher(gitSubject);
 		Pattern pThree = Pattern.compile("^Merge\\s");
-
 		try{
 			if (mOne.find()){
 				trimmedStr ="";
@@ -126,29 +106,23 @@ public class CsvUtil {
 		}
 		catch (Exception e){
 			e.printStackTrace();
-
 		}
-
 		return trimmedStr;
-
 	}
 
 
 
-	
+
 
 
 
 	public ArrayList<ArrayList<String>> createIssueBoard(ArrayList<String> boardNames,String allJiraID)
 	{
-		//System.out.println(allJiraID);
 		ArrayList<ArrayList<String>> allBoards = new ArrayList<ArrayList<String>>();
 		for(int i=0; i<boardNames.size();i++)
 		{
-
 			if(!boardNames.get(i).equalsIgnoreCase("AUTO_MERGE") && !boardNames.get(i).equalsIgnoreCase("NON_EXISTING_JIRA_STORIES")){
 				String patternString = "("+boardNames.get(i)+")-[0-9]{1,}";
-
 				Pattern boardPattern = Pattern.compile(patternString);
 				Matcher boardMatcher= boardPattern.matcher(allJiraID);
 				ArrayList<String> issueBoard = new ArrayList<String>();
@@ -164,11 +138,6 @@ public class CsvUtil {
 		}
 
 		return allBoards;
-
 	}
-
-
-
-
 
 }
