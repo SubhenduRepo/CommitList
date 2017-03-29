@@ -118,11 +118,13 @@ public class CsvUtil {
 
 	public ArrayList<ArrayList<String>> createIssueBoard(ArrayList<String> boardNames,String allJiraID)
 	{
+		System.out.println(allJiraID);
 		ArrayList<ArrayList<String>> allBoards = new ArrayList<ArrayList<String>>();
 		for(int i=0; i<boardNames.size();i++)
 		{
+			System.out.println(boardNames.get(i));
 			if(!boardNames.get(i).equalsIgnoreCase("AUTO_MERGE") && !boardNames.get(i).equalsIgnoreCase("NON_EXISTING_JIRA_STORIES")){
-				String patternString = "(?<=,)("+boardNames.get(i)+")-[0-9]{1,}";
+				String patternString = "("+boardNames.get(i)+")-[0-9]{1,}";
 				Pattern boardPattern = Pattern.compile(patternString);
 				Matcher boardMatcher= boardPattern.matcher(allJiraID);
 				ArrayList<String> issueBoard = new ArrayList<String>();

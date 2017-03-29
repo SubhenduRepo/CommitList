@@ -1,0 +1,9 @@
+package com.tcs.kits.util;
+
+public final class GlobalValues {
+	
+	public static void setGlobalProps(){
+		
+	}
+
+}

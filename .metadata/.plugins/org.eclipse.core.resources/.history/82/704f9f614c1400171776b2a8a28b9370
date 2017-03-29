@@ -1,0 +1,20 @@
+package com.tcs.kits.util;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+public final class GlobalValues {
+	
+	public static void setGlobalProps(){
+		Properties prop = new Properties();
+		try{
+			System.out.println("Reading properties for values.....");
+			input = new FileInputStream("releaseNotes.properties");
+			prop.load(input);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+}

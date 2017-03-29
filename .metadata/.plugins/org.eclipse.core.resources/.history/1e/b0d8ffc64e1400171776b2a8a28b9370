@@ -22,6 +22,7 @@ public class JiraUtil {
 
 	static ArrayList<String> nonJiraIds= new ArrayList<String>();
 
+
 	public void jiraControl(ArrayList<ArrayList<String>> allBoards,ArrayList<ArrayList<String>> csvArrayTotal){
 		ArrayList<ArrayList<String>> nonJiraDetails = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<String>> allIssues = new ArrayList<ArrayList<String>>();
@@ -141,12 +142,14 @@ public class JiraUtil {
 			System.out.println("Initializing fetch module.....");
 			while (oItr.hasNext()){
 				Iterator itr = ((ArrayList<String>) oItr.next()).iterator();
-				
+				//System.out.println("get all issues");
+
 				//Get Issue and add to the main board
 				dummyBoard = getIssueDetails(itr, auth, BASE_URL, API_ISSUE_PATH);
 				if (!dummyBoard.isEmpty()){
 					board2.add(dummyBoard);
 				}
+
 			}
 
 			long endTime = System.currentTimeMillis();
@@ -157,6 +160,8 @@ public class JiraUtil {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		//System.out.println("Non-Jiras::"+nonJiraIds);
+
 		return board2;
 	}
 
@@ -180,7 +185,9 @@ public class JiraUtil {
 
 	public ArrayList<String> splitter(String concatString)
 	{
+
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList(concatString.split("~~split~~")));
+
 		return list;
 	}
 

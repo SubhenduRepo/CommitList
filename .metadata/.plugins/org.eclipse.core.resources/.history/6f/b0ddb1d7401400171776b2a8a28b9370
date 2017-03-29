@@ -122,14 +122,13 @@ public class CsvUtil {
 		for(int i=0; i<boardNames.size();i++)
 		{
 			if(!boardNames.get(i).equalsIgnoreCase("AUTO_MERGE") && !boardNames.get(i).equalsIgnoreCase("NON_EXISTING_JIRA_STORIES")){
-				String patternString = "(?<=,)("+boardNames.get(i)+")-[0-9]{1,}";
+				String patternString = "("+boardNames.get(i)+")-[0-9]{1,}";
 				Pattern boardPattern = Pattern.compile(patternString);
 				Matcher boardMatcher= boardPattern.matcher(allJiraID);
 				ArrayList<String> issueBoard = new ArrayList<String>();
 				issueBoard.add(boardNames.get(i));
 				while(boardMatcher.find())
 				{
-					System.out.println(boardMatcher.group());
 					if(!issueBoard.contains(boardMatcher.group())){
 						issueBoard.add(boardMatcher.group());
 					}

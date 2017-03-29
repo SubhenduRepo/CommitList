@@ -22,6 +22,7 @@ public class JiraUtil {
 
 	static ArrayList<String> nonJiraIds= new ArrayList<String>();
 
+
 	public void jiraControl(ArrayList<ArrayList<String>> allBoards,ArrayList<ArrayList<String>> csvArrayTotal){
 		ArrayList<ArrayList<String>> nonJiraDetails = new ArrayList<ArrayList<String>>();
 		ArrayList<ArrayList<String>> allIssues = new ArrayList<ArrayList<String>>();
@@ -34,6 +35,7 @@ public class JiraUtil {
 		if(isCompleted){
 			nonJiraIds.add("NON_EXISTING_JIRA_STORIES");
 			nonJiraDetails=getNonJiraIdDetails(csvArrayTotal, nonJiraIds);
+			//System.out.println(nonJiraDetails);
 			excelUtil.ExcelUpdateNonJira(nonJiraDetails);
 		}
 	}
@@ -63,11 +65,14 @@ public class JiraUtil {
 		long startTime = System.currentTimeMillis();
 
 		try{
+
 			System.out.println("Fetching Data for "+itr.next()+" board from KITS jira-board......");
 			System.out.println();
 			while(itr.hasNext()){
+				//System.out.println("Inside while");
 				issueId=itr.next().toString();
 				String issue = invokeGetMethod(auth, BASE_URL + API_ISSUE_PATH + issueId );
+				//System.out.println("Authenticated Successfully for::"+issue);
 				JSONObject obj = new JSONObject(issue);
 
 				if (obj!=null && !obj.toString().equalsIgnoreCase("{\"errors\":{},\"errorMessages\":[\"Issue Does Not Exist\"]}")){
@@ -90,14 +95,21 @@ public class JiraUtil {
 					concatString=concatString.concat(seperator);
 					concatString=concatString.concat(priority);
 
+
 					board1.add(concatString);
 					concatString="";
+
 				}
 				else{
 					nonJiraCount++;
 					nonJiraIds.add(issueId);
 				}
+
+
 			}
+
+
+
 		}
 		catch (Exception e)
 		{
@@ -131,6 +143,11 @@ public class JiraUtil {
 			String issueID = prop.getProperty("issueID").toString();
 
 
+
+
+
+			//System.out.println("afafaf"+boards);
+
 			String auth = new String(Base64.encode(jiraUserID+":"+jiraPwd));
 
 			Iterator oItr = allBoards.iterator();
@@ -141,12 +158,14 @@ public class JiraUtil {
 			System.out.println("Initializing fetch module.....");
 			while (oItr.hasNext()){
 				Iterator itr = ((ArrayList<String>) oItr.next()).iterator();
-				
+				//System.out.println("get all issues");
+
 				//Get Issue and add to the main board
 				dummyBoard = getIssueDetails(itr, auth, BASE_URL, API_ISSUE_PATH);
 				if (!dummyBoard.isEmpty()){
 					board2.add(dummyBoard);
 				}
+
 			}
 
 			long endTime = System.currentTimeMillis();
@@ -157,6 +176,8 @@ public class JiraUtil {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		//System.out.println("Non-Jiras::"+nonJiraIds);
+
 		return board2;
 	}
 
@@ -180,7 +201,9 @@ public class JiraUtil {
 
 	public ArrayList<String> splitter(String concatString)
 	{
+
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList(concatString.split("~~split~~")));
+
 		return list;
 	}
 

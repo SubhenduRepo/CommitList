@@ -1,0 +1,30 @@
+package com.tcs.kits.util;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class GlobalValues {
+	
+	public static void setGlobalProps(){
+		Properties prop = new Properties();
+		InputStream input = null;
+		try{
+			System.out.println("Reading properties for values.....");
+			input = new FileInputStream("releaseNotes.properties");
+			prop.load(input);
+			
+			final String BASE_URL = prop.getProperty("BASE_URL").toString();
+			final String API_ISSUE_PATH = prop.getProperty("API_ISSUE_PATH").toString();
+
+			final String jiraUserID = prop.getProperty("jiraUserID").toString();
+			final String jiraPwd = prop.getProperty("jiraPwd").toString();
+			final String issueID = prop.getProperty("issueID").toString();
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+}
